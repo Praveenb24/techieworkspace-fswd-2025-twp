@@ -3,28 +3,34 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Signup - Techie WorkPractice</title>
+    <title>Sign up - Techie WorkPractice</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
   </head>
   <body>
+    <nav class="rail">
+      <ul>
+        <li><a href="/">TWP</a></li>
+        <li><a href="/login.html">Log in</a></li>
+      </ul>
+    </nav>
     <header>
-      <nav>
-        <ul>
-          <li>Already have an account?</li>
-          <li><a href="/login.html">Log in</a></li>
-        </ul>
-      </nav>
     </header>
     <main>
-      <h1>Log in to your account</h1>
-      <form action="/signup" enctype="multipart/form-data" method="POST">
-        <input type="text" name="name" placeholder="Enter name" size="16">
-        <input type="text" name="username" placeholder="Enter username" size="16">
-        <input type="password" name="password" placeholder="Enter password" size="16">
-        <input type="submit" name="submit">
-      </form>
+      <div class="grid">
+        <div class="grid-col-1 md-grid-col-3 lg-grid-col-4"></div>
+        <div class="grid-col-10 md-grid-col-6 lg-grid-col-4">
+          <h1 class="text-center">Create an account</h1>
+          <form action="/signup" enctype="multipart/form-data" method="POST">
+            <input type="text" name="name" placeholder="Enter name" size="16">
+            <input type="text" name="username" placeholder="Enter username" size="16">
+            <input type="password" name="password" placeholder="Enter password" size="16">
+            <input type="submit" value="Sign up">
+          </form>
+        </div>
+        <div class="grid-col-1 md-grid-col-3 lg-grid-col-4"></div>
+      </div>
     </main>
     <footer>
-      <p>Copyright © 2025 Techie Workspace.</p>
     </footer>
   </body>
 </html>
