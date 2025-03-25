@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>To Do App - Techie WorkPractice</title>
+    <link rel="stylesheet" type="text/css" href="/assets/css/main.css">
+    <link rel="stylesheet" type="text/css" href="/assets/css/project-management.css">
+  </head>
+  <body>
+    <nav class="rail">
+      <ul class="menustart">
+        <li><a href="/">TWP</a></li>
+        <li class="active"><a href="/todo.html">To Do</a></li>
+        <li><a href="/chat.html">Chat</a></li>
+      </ul>
+      <ul class="menuend">
+        <li><a href="/logout">Log out</a></li>
+      </ul>
+    </nav>
+    <header class="banner">
+      <h1>Issue & Project Management Software</h1>
+    </header>
+    <main>
+      <div class="grid">
+        <div id="todo" class="grid-col-12 md-grid-col-4 lg-grid-col-4 task">
+          <h2>To Do</h2>
+          <form class="grid">
+            <input type="text" name="task" class="grid-col-8">
+            <button type="submit" class="grid-col-4">Submit</button>
+          </form>
+          <ul></ul>
+        </div>
+        <div id="inprogress" class="grid-col-12 md-grid-col-4 lg-grid-col-4 task">
+          <h2>Inprogress</h2>
+          <form class="grid">
+            <input type="text" name="task" class="grid-col-8">
+            <button type="submit" class="grid-col-4">Submit</button>
+          </form>
+          <ul></ul>
+        </div>
+        <div id="done" class="grid-col-12 md-grid-col-4 lg-grid-col-4 task">
+          <h2>Done</h2>
+          <form class="grid">
+            <input type="text" name="task" class="grid-col-8">
+            <button type="submit" class="grid-col-4">Submit</button>
+          </form>
+          <ul></ul>
+        </div>
+      </div>
+      <script type="text/javascript" src="/assets/js/main.js"></script>
+      <script type="text/javascript">
+        /* Object style */
+        // task.init();
+        
+        /* Prototype based style */
+        // let todo = new Task('todo');
+        // let inprogress = new Task('inprogress');
+        // let done = new Task('done');
+
+        /* Class based OOPs style */
+        let todo = new Task('todo');
+        let inprogress = new Task('inprogress');
+        let done = new Task('done');
+      </script>
+    </main>
+    <footer>
+    </footer>
+  </body>
+</html>
