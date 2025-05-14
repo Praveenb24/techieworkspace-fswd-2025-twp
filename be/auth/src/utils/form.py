@@ -15,6 +15,11 @@ _schema = {
         'required': True,
         'regex': r'^[a-z0-9]+@[a-z0-9]+\.[a-z]{2,6}$'
     },
+    'phone': {
+        'type': str,
+        'required': True,
+        'regex': r'^\+[0-9]+$'
+    },
     'password': {
         'type': str,
         'minlength': 8,

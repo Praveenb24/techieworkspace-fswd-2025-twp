@@ -2,7 +2,7 @@
 {% block navrail %}
 <ul>
   <li><a href="/">TWP</a></li>
-  <li><a href="/signup.html">Sign up</a></li>
+  <li><a href="/signup">Sign up</a></li>
 </ul>
 {% end %}
 {% block main %}
@@ -11,6 +11,7 @@
   <div class="grid-col-10 md-grid-col-6 lg-grid-col-4">
     <h1 class="text-center">Log in to your account</h1>
     <form action="/login" enctype="multipart/form-data" method="POST">
+      {% module xsrf_form_html() %}
       <input type="text" name="username" placeholder="Enter username" size="16">
       <input type="password" name="password" placeholder="Enter password" size="16">
       <input type="submit" value="Log in">
@@ -22,7 +23,7 @@
 {% block script %}
 <script type="text/javascript">
   document.addEventListener('DOMContentLoaded', function () {
-    let login = new Auth();
+    let signup = new Auth();
   });
 </script>
 {% end %}

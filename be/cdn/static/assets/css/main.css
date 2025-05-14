@@ -151,7 +151,8 @@ form {
 }
 input[type="text"],
 input[type="password"],
-input[type="submit"] {
+input[type="submit"]
+input[type="email"] {
   height: 32px;
   padding: 0 1rem;
   border: 1px solid var(--color-outline);
@@ -282,4 +283,24 @@ input[type="submit"] {
   .lg-grid-col-12 {
     grid-column: 12 span;
   }
+  
+  /* Toast styles */
+#toast-container {
+  position: absolute;
+  right: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.toast {
+  background-color: #fff;
+  padding: 1rem;
+  border-radius: 1rem;
+  width: 300px;
+  right: 1rem;
+}
+.toast-header {
+  display: flex;
+  justify-content: space-between;
+}
 }

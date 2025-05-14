@@ -2,7 +2,7 @@
 {% block navrail %}
 <ul>
   <li><a href="/">TWP</a></li>
-  <li><a href="/login.html">Log in</a></li>
+  <li><a href="/login">Log in</a></li>
 </ul>
 {% end %}
 {% block main %}
@@ -11,7 +11,10 @@
   <div class="grid-col-10 md-grid-col-6 lg-grid-col-4">
     <h1 class="text-center">Create an account</h1>
     <form action="/signup" enctype="multipart/form-data" method="POST">
-      <input type="text" name="name" placeholder="Enter name" size="16">
+      {% module xsrf_form_html() %}
+      <input type="text" name="name" placeholder="Enter Full Name" size="16">
+      <input type="email" name="email" placeholder="Enter Email" size="16">
+      <input type="text" name="phone" placeholder="Enter phone number along with country code" size="16">
       <input type="text" name="username" placeholder="Enter username" size="16">
       <input type="password" name="password" placeholder="Enter password" size="16">
       <input type="submit" value="Sign up">

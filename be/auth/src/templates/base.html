@@ -12,6 +12,7 @@
       {% block navrail %}{% end %}
     </nav>
     <header>
+      <div id="toast-container"></div>
       {% block header %}{% end %}
     </header>
     <main>
@@ -21,7 +22,18 @@
       {% block footer %}{% end %}
     </footer>
     <script type="text/javascript" src="{{ cdn_url }}/libraries/jquery/jquery-3.7.1.min.js"></script>
+    <script type="text/javascript" src="{{ cdn_url }}/assets/js/toast.js"></script>
     <script type="text/javascript" src="{{ cdn_url }}/assets/js/main.js"></script>
+        {% if len(notify) > 0 %}
+    <script type="text/javascript">
+      document.addEventListener('DOMContentLoaded', function () {
+        const toast = new Toast();
+        {% for item in notify %}
+            toast.show("{{item['status']}}","{{item['message']}}");
+        {% end %}
+      });
+    </script>
+    {% end %}
     {% block script %}{% end %}
   </body>
 </html>

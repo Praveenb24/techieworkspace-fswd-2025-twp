@@ -4,49 +4,57 @@ class Auth {
 
         const that = this;
 
+        this.toast = new Toast();
         this.form = $("form");
         this.form.on(
             "submit",
             (event) => {
 
-                event.preventDefault();
-                that.validate();
+                that.validate(event);
 
             }
         );
 
     }
 
-    validate () {
+    validate (event) {
+        try {
+            const password = $("input[name='password']").val(),
+                  username = $("input[name='username']").val();
 
-        const password = $("input[name='password']").val(),
-              username = $("input[name='username']").val();
+            let hasError = false;
 
-        if (username === "" && password === "") {
+            if (username === "" && password === "") {
 
-            console.log("Username and password should not be empty");
+                this.toast.show(`Error`, "Username and password should not be empty");
+                hasError = true;
+
+            }
+
+            if (!this.#validateUsername(username)) {
+
+                this.toast.show(`Error`, `Username is invalid. Username should be 8 - 16 char,
+                            lower case letter and digits.`);
+                hasError = true;
+
+            }
+
+            if (!this.#validatePassword(password)) {
+
+                this.toast.show(`Error`, `password is invalid. password should be 8 - 16 char,
+                             lower and uppercase case letter and digits.`);
+                hasError = true;
+
+            }
+
+            if (hasError) {
+                event.preventDefault();
+            }
+
+        } catch (err) {
+            console.error("Validation error:", err);
             event.preventDefault();
-
         }
-
-        if (!this.#validateUsername(username)) {
-
-            console.log(`Username is invalid. Username should be 8 - 16 char,
-                        lower case letter and digits.`);
-            event.preventDefault();
-
-        }
-
-        if (!this.#validatePassword(password)) {
-
-            console.log(`password is invalid. password should be 8 - 16 char,
-                         lower and uppercase case letter and digits.`);
-            event.preventDefault();
-
-        }
-
-        console.log('Username and password are valid');
-
     }
 
     #validateUsername (username) {
