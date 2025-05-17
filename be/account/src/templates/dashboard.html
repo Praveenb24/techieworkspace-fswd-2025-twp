@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block navrail %}
+<ul class="menustart">
+  <li><a href="/">TWP</a></li>
+  <li><a href="/project-management">PM</a></li>
+  <li><a href="/chat">Chat</a></li>
+</ul>
+<ul class="menuend">
+  <li><a href="{{ auth_microservice_url }}/logout">Log out</a></li>
+</ul>
+{% end %}
+{% block main %}
+<div class="banner">
+  <h1>Welcome to Techie WorkPractice portal</h1>
+</div>
+{% end %}
