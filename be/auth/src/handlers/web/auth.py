@@ -1,6 +1,14 @@
 """
 Authentication request handlers.
 """
+# Import standard modules.
+from datetime import datetime, timezone, timedelta
+
+# Import ecryption module.
+import jwt
+
+# Import hashing module.
+from argon2 import PasswordHasher
 
 # Import the base handler from custom modules.
 from handlers.base import BaseHandler
@@ -82,6 +90,18 @@ class SignupHandler(BaseHandler):
             if user.read_by_username(user_data['username']):
                 raise ValidationError("Username already exists.")
 
+            # Step 4: Instantiate password hasher and hash the user's password.
+            ph = PasswordHasher()
+            user_data['password'] = ph.hash(user_data['password'])
+
+            # Step 5: Create a new employee.
+            user_data['title'] = 'Software Engineer'
+            user_data['status'] = '0'
+            user_data['role'] = '0'
+            response = user.create(user_data)
+            if not response:
+                raise Exception({"status": "error", "message": "Unexpected error."})
+
             self.vars['notify'] = [
                 {"status": "Success", "message": "Account created successfully."}
             ]
@@ -144,6 +164,35 @@ class LoginHandler(BaseHandler):
             if not existing_user_data:
                 raise ValidationError("Invalid credentials.")
 
+            # Step 4: Instantiate password hasher and hash the user's password.
+            ph = PasswordHasher()
+
+            # Step 5: Validate password.
+            if not ph.verify(existing_user_data['password'], user_data['password']):
+                raise ValidationError("Invalid password.")
+
+            # Step 6: Delete password in the existing user data.
+            del existing_user_data['password']
+
+            # Step 7: Generaate token.
+            existing_user_data['exp'] = datetime.now(tz=timezone.utc) + timedelta(days=1)
+            token = jwt.encode(
+                existing_user_data,
+                self.config['app']['app_secret'],
+                algorithm="HS256"
+            )
+            # Step 8: Set cookie and redirect to account dashboard.
+            is_cookie_secure = True if self.config['app']['scheme'] == 'https' else False
+            samesite_value = "None" if is_cookie_secure else "Lax"
+            self.set_signed_cookie(
+                'user',
+                token,
+                httponly=True,
+                secure=is_cookie_secure,
+                samesite=samesite_value,
+                domain='.'+self.config['app']['domain']
+            )
+
             account_microservice_url = self.config['app']['account_microservice']['url']
             self.redirect(f"{account_microservice_url}/dashboard", permanent=False)
         except ValueError as ve:
@@ -176,4 +225,12 @@ class LogoutHandler(BaseHandler):
         Returns:
             None: This method does not return a value but redirects to the '/login' route.
         """
+        is_cookie_secure = self.config['app']['scheme'] == 'https'
+        samesite_value = "None" if is_cookie_secure else "Lax"
+        self.clear_all_cookies(
+            httponly=True,
+            secure=is_cookie_secure,
+            samesite=samesite_value,
+            domain='.'+self.config['app']['domain']
+        )
         self.redirect("/login", permanent=False)

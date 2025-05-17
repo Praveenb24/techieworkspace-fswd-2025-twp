@@ -35,13 +35,21 @@ class Application(tornado.web.Application):
             (r"/login", LoginHandler),
             (r"/logout", LogoutHandler)
         ]
+        is_cookie_secure = config['app']['scheme'] == 'https'
+        samesite_value = "None" if is_cookie_secure else "Lax"
         settings = {
             'template_path':os.path.join(os.path.dirname(__file__),'templates'),
             'cookie_secret':config['app']['cookie_secret'],
             'xsrf_cookies':True,
+            'xsrf_cookie_kwargs':{
+                'httponly':False,
+                'secure':is_cookie_secure,
+                'samesite':samesite_value,
+                'domain':'.'+config['app']['domain']
+            },
             'debug':True
         }
-        self.db = MySQL()
+        self.mysql = MySQL()
         self.config = config
         super().__init__(handlers, **settings)
 
